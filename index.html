@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Bebe ❤️</title>
+
+    <!-- Modern Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --primary-accent: #ff6b81;
+            --soft-olive: #95a5a6;
+            --aesthetic-blue: #70a1ff;
+            --text-main: #2f3542;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #fdf2f2;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Floating Background Blobs --- */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 20s infinite alternate;
+        }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: #ff9ff3;
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: #a29bfe;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            top: 40%;
+            left: 40%;
+            width: 300px;
+            height: 300px;
+            background: #81ecec;
+            animation-delay: -10s;
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff6b81, #ff4757);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: slideUp 1s ease forwards;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: slideUp 1s ease 0.3s forwards;
+        }
+
+        .glass-panel p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #57606f;
+        }
+
+        .scroll-indicator {
+            margin-top: 60px;
+            font-size: 2rem;
+            color: var(--primary-accent);
+            opacity: 0;
+            animation: bounce 2s infinite, fadeIn 1s 1s forwards;
+        }
+
+        /* --- Cards Section --- */
+        .section-header {
+            text-align: center;
+            margin: 100px 0 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #2f3542;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 350px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .flip-card-front {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: #fff0f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(255, 107, 129, 0.15);
+        }
+
+        .card-label {
+            font-weight: 700;
+            color: #a4b0be;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        .flip-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            color: #2f3542;
+        }
+
+        .flip-card-back p {
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .highlight-text {
+            color: var(--primary-accent);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- Action Zone --- */
+        .action-zone {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 80px 40px;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            position: relative;
+        }
+
+        .action-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #2f3542;
+        }
+
+        .action-card p {
+            font-size: 1.2rem;
+            color: #747d8c;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            position: relative;
+            height: 150px;
+            /* Adjusted height */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        button {
+            padding: 18px 45px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-accent);
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 107, 129, 0.3);
+            z-index: 10;
+            /* Removed animation and hover transform for static feel */
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 35px rgba(255, 107, 129, 0.5);
+        }
+
+        .btn-secondary {
+            background: #f1f2f6;
+            color: #747d8c;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 20;
+            /* Ensure it stays on top */
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* Slower, smoother glide */
+        }
+
+        .btn-secondary:hover {
+            background: #ff6b81;
+            color: white;
+        }
+
+        /* --- Finale --- */
+        .finale-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+            /* Slower fade in for dramatic effect */
+        }
+
+        .finale-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .big-heart {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        /* Floating Heart Styles */
+        .floating-heart {
+            position: absolute;
+            bottom: -10vh;
+            opacity: 0;
+            animation-name: floatUp;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+            pointer-events: none;
+            z-index: 150;
+            /* Above regular content, below finale overlay */
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(50px, 50px) rotate(20deg);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-15px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.3);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.15);
+            }
+
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1.2) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .action-card {
+                padding: 40px 20px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                height: auto;
+                gap: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="container">
+
+        <!-- Hero -->
+        <header>
+            <h1>Hey, Kammo...</h1>
+            <div class="glass-panel">
+                <p>
+                    I know I messed up on Valentine's Day. I'm sorry for making you feel ignored—it breaks my heart to
+                    see you upset. You are my priority, and I just wanted to take a moment to remind you exactly how
+                    much you mean to me.
+                </p>
+                <p style="margin-top: 15px; font-weight: 600; color: var(--primary-accent);">
+                    For my Bebe ❤️
+                </p>
+            </div>
+            <div class="scroll-indicator">↓</div>
+        </header>
+
+        <!-- Cards -->
+        <section class="section-header">
+            <h2>Why You Are Everything</h2>
+            <p style="opacity: 0.6; margin-top: 10px;">Tap to remember</p>
+        </section>
+
+        <div class="card-grid">
+
+            <!-- Card 1 -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-circle">✨</div>
+                        <span class="card-label">Pure Soul</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <span class="highlight-text">Truthful & Pure</span>
+                        <p>In a world full of noise, your honesty and purity ground me.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-circle">💖</div>
+                        <span class="card-label">Big Heart</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <span class="highlight-text">Selfless Care</span>
+                        <p>You care so deeply for everyone around you. It's your superpower.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-circle">🌸</div>
+                        <span class="card-label">Values</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <span class="highlight-text">Respect</span>
+                        <p>The way you respect elders and cherish family shows how beautiful your heart is.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-circle">🧠</div>
+                        <span class="card-label">Intuition</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <span class="highlight-text">Insight</span>
+                        <p>You understand people's true intentions better than anyone I know.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-circle">💌</div>
+                        <span class="card-label">Love</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <span class="highlight-text">Affection</span>
+                        <p>You truly know how to love. You make love feel like home.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Action Area -->
+        <section class="action-zone">
+            <div class="action-card" id="actionCard">
+                <h2>So, can we press restart?</h2>
+                <p>I promise to do better. Will you forgive me?</p>
+
+                <div class="btn-group" id="btnContainer">
+                    <button class="btn-primary" onclick="triggerFinale()">Yes, I forgive you 🥺</button>
+                    <button class="btn-secondary" id="noBtn">No 😤</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Finale Overlay -->
+    <div class="finale-overlay" id="finaleOverlay">
+        <div class="big-heart">❤️</div>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #ff4757; margin: 20px 0;">I Really,
+            Really Love You</h1>
+        <p style="font-size: 1.5rem; color: #2f3542; font-weight: 500;">Thank you for giving me another chance, Bebe.
+        </p>
+        <p style="margin-top: 30px; font-size: 1rem; opacity: 0.7;">Contact me now please please 🥺</p>
+    </div>
+
+    <script>
+        // Runaway Button Logic
+        const noBtn = document.getElementById('noBtn');
+        const isMobile = window.innerWidth < 768;
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('click', moveButton);
+
+        // Store previous positions to ensure we move far enough away each time
+        let prevX = 0;
+        let prevY = 0;
+
+        function moveButton() {
+            // Calculate a random movement that is ALWAYS significant
+            // We generate new coordinates until they are far enough from the previous ones
+            let newX, newY;
+            let safetyCounter = 0;
+
+            do {
+                // Random direction: -1 or 1
+                const dirX = Math.random() < 0.5 ? -1 : 1;
+                const dirY = Math.random() < 0.5 ? -1 : 1;
+
+                // Generate random distance: Minimum 80px, Max 250px from center
+                const distX = 80 + Math.random() * 150;
+                const distY = 50 + Math.random() * 100;
+
+                newX = distX * dirX;
+                newY = distY * dirY;
+
+                safetyCounter++;
+            } while (
+                // Repeat if the new position is too close (within 100px) to the previous position
+                (Math.abs(newX - prevX) < 100 && Math.abs(newY - prevY) < 100) && safetyCounter < 10
+            );
+
+            // Update previous position for next time
+            prevX = newX;
+            prevY = newY;
+
+            // Apply the transform
+            noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+
+        // Create Floating Hearts Bubble Effect
+        function createFloatingHearts() {
+            const heartContainer = document.createElement('div');
+            heartContainer.style.position = 'fixed';
+            heartContainer.style.top = '0';
+            heartContainer.style.left = '0';
+            heartContainer.style.width = '100%';
+            heartContainer.style.height = '100%';
+            heartContainer.style.pointerEvents = 'none';
+            heartContainer.style.zIndex = '150'; // Below finale overlay (200) but above everything else
+            document.body.appendChild(heartContainer);
+
+            const symbols = ['❤️', '💖', '🥰', '🌸', '✨'];
+
+            // Create 50 hearts
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                heart.classList.add('floating-heart');
+
+                // Random positioning and timing
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's'; // 3-6s
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+
+                heartContainer.appendChild(heart);
+            }
+
+            // Cleanup after animation
+            setTimeout(() => {
+                heartContainer.remove();
+            }, 8000);
+        }
+
+        // Finale Logic
+        function triggerFinale() {
+            // 1. Confetti Explosion
+            const duration = 3000;
+            const end = Date.now() + duration;
+            const colors = ['#ff6b81', '#70a1ff', '#ffffff'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            // 2. Trigger Floating Hearts Bubble
+            createFloatingHearts();
+
+            // 3. Show Overlay (Delayed to let hearts emerge first)
+            setTimeout(() => {
+                document.getElementById('finaleOverlay').classList.add('active');
+            }, 2000); // 2 second delay so hearts fill the screen first
+        }
+    </script>
+</body>
+
+</html>
