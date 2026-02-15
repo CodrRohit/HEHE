@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Bebe ❤️</title>
 
-    <!-- Modern Premium Fonts -->
+    <!-- Modern Premium Fonts: Poppins & Great Vibes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Confetti Library -->
@@ -18,76 +18,145 @@
 
     <style>
         :root {
-            --primary-accent: #ff6b81;
-            --soft-olive: #95a5a6;
-            --aesthetic-blue: #70a1ff;
-            --text-main: #2f3542;
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.7);
-            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            /* Modern Palette */
+            --primary: #ff4d6d;
+            --primary-soft: #ff8fa3;
+            --secondary: #590d22;
+            --accent: #ffb3c1;
+
+            --bg-grad-start: #fff0f3;
+            --bg-grad-end: #ffe5ec;
+
+            --text-main: #2b2d42;
+            --text-muted: #6d6875;
+
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+            --card-shadow: 0 10px 40px -10px rgba(255, 77, 109, 0.15);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: #fdf2f2;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 50%, #fff0f3 100%);
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- Floating Background Blobs --- */
+        /* --- Modern Grainy Gradient Background --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* SVG Noise Pattern */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: overlay;
+        }
+
+        /* --- Blobs for Atmosphere --- */
         .blob {
             position: fixed;
             border-radius: 50%;
             filter: blur(80px);
             z-index: -1;
             opacity: 0.6;
-            animation: float 20s infinite alternate;
+            animation: moveBlob 20s infinite alternate ease-in-out;
         }
 
         .blob-1 {
             top: -10%;
             left: -10%;
-            width: 500px;
-            height: 500px;
-            background: #ff9ff3;
+            width: 50vw;
+            height: 50vw;
+            background: #ffc2d1;
         }
 
         .blob-2 {
             bottom: -10%;
             right: -10%;
-            width: 600px;
-            height: 600px;
-            background: #a29bfe;
+            width: 60vw;
+            height: 60vw;
+            background: #ff8fa3;
             animation-delay: -5s;
         }
 
         .blob-3 {
             top: 40%;
             left: 40%;
-            width: 300px;
-            height: 300px;
-            background: #81ecec;
+            width: 40vw;
+            height: 40vw;
+            background: #ffe5ec;
             animation-delay: -10s;
         }
 
-        /* --- Main Layout --- */
+        @keyframes moveBlob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        /* --- Utility & Layout --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
             position: relative;
             z-index: 1;
         }
 
-        /* --- Hero Section --- */
+        /* --- Typography --- */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            /* Lovely script font */
+            font-size: clamp(4rem, 12vw, 7rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #e01e37, #c71f37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInScale 1.2s ease-out forwards;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* --- Glassmorphism --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* --- Header Section --- */
         header {
             min-height: 90vh;
             display: flex;
@@ -95,46 +164,31 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 40px 20px;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #ff6b81, #ff4757);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: slideUp 1s ease forwards;
-        }
-
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--card-shadow);
+        .hero-text-box {
             max-width: 700px;
-            margin: 0 auto;
+            animation: slideUpFade 1s ease-out 0.3s forwards;
             opacity: 0;
-            animation: slideUp 1s ease 0.3s forwards;
         }
 
-        .glass-panel p {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            color: #57606f;
+        .hero-text-box p {
+            font-size: clamp(1.1rem, 3vw, 1.25rem);
+            color: var(--text-main);
+            font-weight: 300;
         }
 
-        .scroll-indicator {
-            margin-top: 60px;
-            font-size: 2rem;
-            color: var(--primary-accent);
-            opacity: 0;
-            animation: bounce 2s infinite, fadeIn 1s 1s forwards;
+        .scroll-pill {
+            margin-top: 50px;
+            padding: 10px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            animation: float 3s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: default;
         }
 
         /* --- Cards Section --- */
@@ -144,243 +198,153 @@
         }
 
         .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: #2f3542;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
         }
 
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            perspective: 1000px;
+            gap: 30px;
+            padding: 20px;
         }
 
-        .flip-card {
-            background-color: transparent;
-            height: 350px;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-        }
-
-        .flip-card-inner {
             position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-        }
-
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            text-align: center;
+            height: 100%;
+            /* Equal height */
         }
 
-        .flip-card-front {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.2);
+            background: rgba(255, 255, 255, 0.85);
         }
 
-        .icon-circle {
-            width: 80px;
-            height: 80px;
-            background: #fff0f1;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+        .icon-box {
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(255, 107, 129, 0.15);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
         }
 
-        .card-label {
-            font-weight: 700;
-            color: #a4b0be;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
+        .feature-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
         }
 
-        .flip-card-back {
-            background: white;
-            transform: rotateY(180deg);
-            color: #2f3542;
-        }
-
-        .flip-card-back p {
+        .card-title {
             font-size: 1.2rem;
-            font-weight: 500;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
             line-height: 1.6;
         }
 
-        .highlight-text {
-            color: var(--primary-accent);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* --- Action Zone --- */
-        .action-zone {
-            min-height: 90vh;
+        /* --- Action Section --- */
+        .choice-section {
+            min-height: 80vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            padding-bottom: 50px;
+            padding: 40px 20px;
         }
 
-        .action-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            padding: 80px 40px;
-            border-radius: 50px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 800px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            position: relative;
-        }
-
-        .action-card h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #2f3542;
-        }
-
-        .action-card p {
-            font-size: 1.2rem;
-            color: #747d8c;
-            margin-bottom: 40px;
-        }
-
-        .btn-group {
-            position: relative;
-            height: 150px;
-            /* Adjusted height */
+        .choice-box {
+            max-width: 600px;
             width: 100%;
+        }
+
+        .choice-box h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .btn-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
             align-items: center;
-            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .btn-container {
+                flex-direction: row;
+                justify-content: center;
+            }
         }
 
         button {
-            padding: 18px 45px;
-            border-radius: 50px;
             border: none;
-            font-size: 1.15rem;
-            font-weight: 700;
+            outline: none;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 18px 40px;
+            border-radius: 50px;
             transition: all 0.3s ease;
-            font-family: 'Outfit', sans-serif;
-            white-space: nowrap;
-        }
-
-        .btn-primary {
-            background: var(--primary-accent);
-            color: white;
-            box-shadow: 0 10px 25px rgba(255, 107, 129, 0.3);
-            z-index: 10;
-            /* Removed animation and hover transform for static feel */
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 15px 35px rgba(255, 107, 129, 0.5);
-        }
-
-        .btn-secondary {
-            background: #f1f2f6;
-            color: #747d8c;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            position: relative;
-            z-index: 20;
-            /* Ensure it stays on top */
-            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-            /* Slower, smoother glide */
-        }
-
-        .btn-secondary:hover {
-            background: #ff6b81;
-            color: white;
-        }
-
-        /* --- Finale --- */
-        .finale-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            z-index: 200;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1.5s ease;
-            /* Slower fade in for dramatic effect */
+            max-width: 300px;
         }
 
-        .finale-overlay.active {
-            opacity: 1;
-            pointer-events: all;
+        .btn-yes {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
         }
 
-        .big-heart {
-            font-size: 6rem;
-            margin-bottom: 20px;
-            animation: heartbeat 1.5s infinite;
+        .btn-yes:hover {
+            transform: translateY(-2px);
+            background: #ff3355;
+            box-shadow: 0 15px 25px rgba(255, 77, 109, 0.4);
         }
 
-        /* Floating Heart Styles */
-        .floating-heart {
-            position: absolute;
-            bottom: -10vh;
-            opacity: 0;
-            animation-name: floatUp;
-            animation-timing-function: ease-out;
-            animation-fill-mode: forwards;
-            pointer-events: none;
-            z-index: 150;
-            /* Above regular content, below finale overlay */
+        .btn-no {
+            background: white;
+            color: var(--text-muted);
+            border: 1px solid #eee;
+            position: relative;
+            /* Essential for movement */
         }
 
-        /* Animations */
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
+        /* --- Animations --- */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
             }
 
-            100% {
-                transform: translate(50px, 50px) rotate(20deg);
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        @keyframes slideUp {
+        @keyframes slideUpFade {
             from {
                 opacity: 0;
                 transform: translateY(40px);
@@ -392,56 +356,35 @@
             }
         }
 
-        @keyframes bounce {
+        @keyframes float {
 
             0%,
-            20%,
-            50%,
-            80%,
             100% {
                 transform: translateY(0);
             }
 
-            40% {
-                transform: translateY(-15px);
-            }
-
-            60% {
+            50% {
                 transform: translateY(-10px);
             }
         }
 
-        @keyframes heartbeat {
-            0% {
-                transform: scale(1);
-            }
-
-            15% {
-                transform: scale(1.3);
-            }
-
-            30% {
-                transform: scale(1);
-            }
-
-            45% {
-                transform: scale(1.15);
-            }
-
-            60% {
-                transform: scale(1);
-            }
+        /* --- Soap Bubble Hearts for Finale --- */
+        .soap-bubble {
+            position: fixed;
+            bottom: -150px;
+            /* Start below screen */
+            font-size: 5rem;
+            /* Large hearts */
+            pointer-events: none;
+            z-index: 9999;
+            animation: bubbleUp linear forwards;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            opacity: 0.8;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes floatUp {
+        @keyframes bubbleUp {
             0% {
-                transform: translateY(0) scale(0.5) rotate(0deg);
+                transform: translateY(0) scale(0.5) translateX(0);
                 opacity: 0;
             }
 
@@ -450,148 +393,136 @@
             }
 
             100% {
-                transform: translateY(-110vh) scale(1.2) rotate(20deg);
+                transform: translateY(-120vh) scale(1.5) translateX(20px);
+                /* Wobbly path adjustment usually done via multiple anims, but simple linear up is requested "from bottom" */
                 opacity: 0;
             }
         }
 
-        /* Mobile */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 3.5rem;
-            }
+        /* Keyframes for wobbly X axis can be added if needed, but linear up is fine for "coming from bottom" */
 
-            .action-card {
-                padding: 40px 20px;
-            }
+        /* Finale Overlay */
+        .finale-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
 
-            .btn-group {
-                flex-direction: column;
-                height: auto;
-                gap: 20px;
-            }
+        .finale-screen.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
 
-            button {
-                width: 100%;
-            }
+        .finale-content h1 {
+            font-size: 5rem;
+            color: var(--primary);
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Background Elements -->
+    <!-- Ambient Background Blobs -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
 
     <div class="container">
 
-        <!-- Hero -->
+        <!-- Hero Section -->
         <header>
             <h1>Hey, Kammo...</h1>
-            <div class="glass-panel">
+            <div class="glass-panel hero-text-box">
                 <p>
                     I know I messed up on Valentine's Day. I'm sorry for making you feel ignored—it breaks my heart to
                     see you upset. You are my priority, and I just wanted to take a moment to remind you exactly how
                     much you mean to me.
                 </p>
-                <p style="margin-top: 15px; font-weight: 600; color: var(--primary-accent);">
+                <p
+                    style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 2rem; color: var(--primary);">
                     For my Bebe ❤️
                 </p>
             </div>
-            <div class="scroll-indicator">↓</div>
+
+            <div class="scroll-pill">Scroll for Love</div>
         </header>
 
-        <!-- Cards -->
+        <!-- Reasons Section -->
         <section class="section-header">
             <h2>Why You Are Everything</h2>
-            <p style="opacity: 0.6; margin-top: 10px;">Tap to remember</p>
+            <p>A few reminders of your magic</p>
         </section>
 
         <div class="card-grid">
 
             <!-- Card 1 -->
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-circle">✨</div>
-                        <span class="card-label">Pure Soul</span>
-                    </div>
-                    <div class="flip-card-back">
-                        <span class="highlight-text">Truthful & Pure</span>
-                        <p>In a world full of noise, your honesty and purity ground me.</p>
-                    </div>
+            <div class="feature-card">
+                <div class="icon-box">✨</div>
+                <div class="card-title">Pure Soul</div>
+                <div class="card-text">
+                    In a world full of noise, your honesty and purity ground me. You are rare.
                 </div>
             </div>
 
             <!-- Card 2 -->
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-circle">💖</div>
-                        <span class="card-label">Big Heart</span>
-                    </div>
-                    <div class="flip-card-back">
-                        <span class="highlight-text">Selfless Care</span>
-                        <p>You care so deeply for everyone around you. It's your superpower.</p>
-                    </div>
+            <div class="feature-card">
+                <div class="icon-box">💖</div>
+                <div class="card-title">Big Heart</div>
+                <div class="card-text">
+                    You care so deeply for everyone around you. It's your superpower.
                 </div>
             </div>
 
             <!-- Card 3 -->
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-circle">🌸</div>
-                        <span class="card-label">Values</span>
-                    </div>
-                    <div class="flip-card-back">
-                        <span class="highlight-text">Respect</span>
-                        <p>The way you respect elders and cherish family shows how beautiful your heart is.</p>
-                    </div>
+            <div class="feature-card">
+                <div class="icon-box">🌸</div>
+                <div class="card-title">Values</div>
+                <div class="card-text">
+                    The way you respect elders and cherish family shows how beautiful your heart is.
                 </div>
             </div>
 
             <!-- Card 4 -->
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-circle">🧠</div>
-                        <span class="card-label">Intuition</span>
-                    </div>
-                    <div class="flip-card-back">
-                        <span class="highlight-text">Insight</span>
-                        <p>You understand people's true intentions better than anyone I know.</p>
-                    </div>
+            <div class="feature-card">
+                <div class="icon-box">🧠</div>
+                <div class="card-title">Intuition</div>
+                <div class="card-text">
+                    You understand people's true intentions better than anyone I know.
                 </div>
             </div>
 
             <!-- Card 5 -->
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-circle">💌</div>
-                        <span class="card-label">Love</span>
-                    </div>
-                    <div class="flip-card-back">
-                        <span class="highlight-text">Affection</span>
-                        <p>You truly know how to love. You make love feel like home.</p>
-                    </div>
+            <div class="feature-card">
+                <div class="icon-box">💌</div>
+                <div class="card-title">Love</div>
+                <div class="card-text">
+                    You truly know how to love. You make love feel like home.
                 </div>
             </div>
 
         </div>
 
-        <!-- Action Area -->
-        <section class="action-zone">
-            <div class="action-card" id="actionCard">
+        <!-- Action Section -->
+        <section class="choice-section">
+            <div class="glass-panel choice-box" id="actionCard">
                 <h2>So, can we press restart?</h2>
                 <p>I promise to do better. Will you forgive me?</p>
 
-                <div class="btn-group" id="btnContainer">
-                    <button class="btn-primary" onclick="triggerFinale()">Yes, I forgive you 🥺</button>
-                    <button class="btn-secondary" id="noBtn">No 😤</button>
+                <div class="btn-container" id="btnContainer">
+                    <button class="btn-yes" onclick="triggerFinale()">Yes, I forgive you 🥺</button>
+                    <button class="btn-no" id="noBtn" onmouseover="moveButton()">No 😤</button>
                 </div>
             </div>
         </section>
@@ -599,113 +530,124 @@
     </div>
 
     <!-- Finale Overlay -->
-    <div class="finale-overlay" id="finaleOverlay">
-        <div class="big-heart">❤️</div>
-        <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #ff4757; margin: 20px 0;">I Really,
-            Really Love You</h1>
-        <p style="font-size: 1.5rem; color: #2f3542; font-weight: 500;">Thank you for giving me another chance, Bebe.
-        </p>
-        <p style="margin-top: 30px; font-size: 1rem; opacity: 0.7;">Contact me now please please 🥺</p>
+    <div class="finale-screen" id="finaleOverlay">
+        <div class="finale-content" style="text-align: center;">
+            <h1>I Love You!</h1>
+            <p style="font-size: 1.5rem; color: var(--text-muted); margin-top: 20px;">
+                Thank you for giving me another chance. <br> Contact me now please! 🥺
+            </p>
+        </div>
     </div>
+
 
     <script>
         // Runaway Button Logic
         const noBtn = document.getElementById('noBtn');
-        const isMobile = window.innerWidth < 768;
 
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('click', moveButton);
-
-        // Store previous positions to ensure we move far enough away each time
         let prevX = 0;
         let prevY = 0;
 
+        // Add both touch and mouse events for better mobile support
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent click
+            moveButton();
+        });
+        noBtn.addEventListener('click', moveButton);
+
         function moveButton() {
-            // Calculate a random movement that is ALWAYS significant
-            // We generate new coordinates until they are far enough from the previous ones
+            const isMobile = window.innerWidth < 768;
+
             let newX, newY;
             let safetyCounter = 0;
 
+            const minMove = isMobile ? 40 : 100;
+            const maxMove = isMobile ? 120 : 300;
+
             do {
-                // Random direction: -1 or 1
                 const dirX = Math.random() < 0.5 ? -1 : 1;
                 const dirY = Math.random() < 0.5 ? -1 : 1;
 
-                // Generate random distance: Minimum 80px, Max 250px from center
-                const distX = 80 + Math.random() * 150;
-                const distY = 50 + Math.random() * 100;
+                const distX = minMove + Math.random() * (maxMove - minMove);
+                const distY = minMove + Math.random() * (maxMove - minMove);
 
                 newX = distX * dirX;
                 newY = distY * dirY;
 
                 safetyCounter++;
             } while (
-                // Repeat if the new position is too close (within 100px) to the previous position
-                (Math.abs(newX - prevX) < 100 && Math.abs(newY - prevY) < 100) && safetyCounter < 10
+                (Math.abs(newX - prevX) < minMove && Math.abs(newY - prevY) < minMove)
+                && safetyCounter < 10
             );
 
-            // Update previous position for next time
             prevX = newX;
             prevY = newY;
 
-            // Apply the transform
             noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
         }
 
-        // Create Floating Hearts Bubble Effect
-        function createFloatingHearts() {
-            const heartContainer = document.createElement('div');
-            heartContainer.style.position = 'fixed';
-            heartContainer.style.top = '0';
-            heartContainer.style.left = '0';
-            heartContainer.style.width = '100%';
-            heartContainer.style.height = '100%';
-            heartContainer.style.pointerEvents = 'none';
-            heartContainer.style.zIndex = '150'; // Below finale overlay (200) but above everything else
-            document.body.appendChild(heartContainer);
+        // Feature: Soap Bubble Hearts
+        function createSoapBubbleHearts() {
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.top = '0';
+            container.style.left = '0';
+            container.style.width = '100%';
+            container.style.height = '100%';
+            container.style.pointerEvents = 'none';
+            container.style.zIndex = '9999';
+            document.body.appendChild(container);
 
-            const symbols = ['❤️', '💖', '🥰', '🌸', '✨'];
+            // Create many large hearts
+            const heartCount = 30;
 
-            // Create 50 hearts
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < heartCount; i++) {
                 const heart = document.createElement('div');
-                heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.classList.add('soap-bubble');
 
-                // Random positioning and timing
+                // Random Size: very large as requested
+                const size = Math.floor(Math.random() * 100) + 80; // 80px to 180px
+                heart.style.fontSize = `${size}px`;
+
+                // Random Position from left
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 3) + 's'; // 3-6s
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
 
-                heartContainer.appendChild(heart);
+                // Random Speed
+                const duration = Math.random() * 4 + 4; // 4s to 8s
+                heart.style.animationDuration = `${duration}s`;
+
+                // Stagger start times so they don't all come at once
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+
+                container.appendChild(heart);
             }
 
-            // Cleanup after animation
+            // Cleanup
             setTimeout(() => {
-                heartContainer.remove();
-            }, 8000);
+                container.remove();
+            }, 10000);
         }
 
         // Finale Logic
         function triggerFinale() {
-            // 1. Confetti Explosion
+            // 1. Confetti (keeping it as a secondary celebration)
             const duration = 3000;
             const end = Date.now() + duration;
-            const colors = ['#ff6b81', '#70a1ff', '#ffffff'];
+            const colors = ['#e01e37', '#ffffff'];
 
             (function frame() {
                 confetti({
-                    particleCount: 5,
+                    particleCount: 6,
                     angle: 60,
-                    spread: 55,
+                    spread: 80,
                     origin: { x: 0 },
                     colors: colors
                 });
                 confetti({
-                    particleCount: 5,
+                    particleCount: 6,
                     angle: 120,
-                    spread: 55,
+                    spread: 80,
                     origin: { x: 1 },
                     colors: colors
                 });
@@ -715,13 +657,13 @@
                 }
             }());
 
-            // 2. Trigger Floating Hearts Bubble
-            createFloatingHearts();
+            // 2. Giant Soap Bubble Hearts
+            createSoapBubbleHearts();
 
-            // 3. Show Overlay (Delayed to let hearts emerge first)
+            // 3. Show Final Message
             setTimeout(() => {
-                document.getElementById('finaleOverlay').classList.add('active');
-            }, 2000); // 2 second delay so hearts fill the screen first
+                document.getElementById('finaleOverlay').classList.add('visible');
+            }, 2000);
         }
     </script>
 </body>
